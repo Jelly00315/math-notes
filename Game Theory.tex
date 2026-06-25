@@ -1,0 +1,857 @@
+%% The lines that are not written within % .. % are not to be tampered with!!
+
+\documentclass[twoside]{article}
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+%
+% ADD PACKAGES here:
+\usepackage{amssymb}
+\usepackage{multirow}
+%
+\usepackage[most]{tcolorbox} % 引入 tcolorbox 宏包
+\usepackage{amsthm}
+\usepackage{xcolor}
+
+\newtheoremstyle{definitionstyle}
+  {3pt}   % 上方间距
+  {3pt}   % 下方间距
+  {\normalfont} % 字体
+  {}      % 缩进
+  {\bfseries\color{blue}} % 标题字体
+  {.}     % 标题后标点
+  {0.5em} % 标题后间距
+  {}      % 标题格式
+
+\theoremstyle{definitionstyle}
+\newtheorem*{definition}{Definition}
+\newtheorem*{theorem}{Theorem}  
+\usepackage{amsmath,amsfonts,graphicx}
+\usepackage{etoolbox} % 提供 \BeforeBeginEnvironment 和 \AfterEndEnvironment
+\BeforeBeginEnvironment{definition}{%
+  \begin{tcolorbox}[
+    colback=white,
+    colframe=black,
+    boxrule=0.6pt, % 边框粗细
+    arc=0pt,       % 直角
+    top=4pt,       % 上内边距
+    bottom=4pt,    % 下内边距
+    left=4pt,      % 左内边距
+    right=4pt,     % 右内边距
+    breakable,     % 允许跨页
+  ]%
+}
+\AfterEndEnvironment{definition}{\end{tcolorbox}}
+\BeforeBeginEnvironment{theorem}{%
+  \begin{tcolorbox}[
+    colback=white,
+    colframe=black,
+    boxrule=0.6pt, % 边框粗细
+    arc=0pt,       % 直角
+    top=4pt,       % 上内边距
+    bottom=4pt,    % 下内边距
+    left=4pt,      % 左内边距
+    right=4pt,     % 右内边距
+    breakable,     % 允许跨页
+  ]%
+}
+\AfterEndEnvironment{theorem}{\end{tcolorbox}}
+\newcounter{lecnum}
+\renewcommand{\thepage}{\thelecnum-\arabic{page}}
+\renewcommand{\thesection}{\thelecnum.\arabic{section}}
+\renewcommand{\theequation}{\thelecnum.\arabic{equation}}
+\renewcommand{\thefigure}{\thelecnum.\arabic{figure}}
+\renewcommand{\thetable}{\thelecnum.\arabic{table}}
+
+
+\newcommand{\lecture}[4]{
+   \pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{lecnum}{#1}
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf MATH4321} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill Lecture #1: #2  \hfill} }
+       \vspace{2mm}
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{Lecture #1: #2}{Lecture #1: #2}
+}
+
+
+
+\renewcommand{\cite}[1]{[#1]}
+\def\beginrefs{\begin{list}%
+        {[\arabic{equation}]}{\usecounter{equation}
+         \setlength{\leftmargin}{2.0truecm}\setlength{\labelsep}{0.4truecm}%
+         \setlength{\labelwidth}{1.6truecm}}}
+\def\endrefs{\end{list}}
+\def\bibentry#1{\item[\hbox{[#1]}]}
+
+%Use this command for a figure; it puts a figure in wherever you want it.
+%usage: \fig{NUMBER}{SPACE-IN-INCHES}{CAPTION}
+%This is for your help while typing the notes
+\newcommand{\fig}[3]{
+			\vspace{#2}
+			\begin{center}
+			Figure \thelecnum.#1:~#3
+			\end{center}
+	}
+
+\newcommand\E{\mathbb{E}}
+\newcommand{\PI}{$P_{i}$}
+\newcommand{\KIA}{$K_{i}(A)$}
+\newcommand{\FIW}{$F_{i}(\omega)$}
+\newcommand{\OS}{$\omega ^{*}$}
+\begin{document}
+
+\lecture{1}{Static games of complete information and Nash equilibrium}{XIE}{Static games of complete information and Nash equilibrium }%In place of scribe-name, write down your names or your group names
+
+
+ 
+%正文开始
+\section{Static Games}
+single (once-and-for-all) decision simultaneously and independently; outcome and payoffs; Complete information
+
+% Games in Normal form
+\subsection{Games in normal form}
+\begin{definition}[Games in normal form]
+A game in normal form is a games consisting of the following 3 elements: \\
+(i) A finite set of players, denoted by $P$ = $\{1,2,\ldots,n\}$; \\
+(ii) A set of actions (can be finite or infinite) that can be chosen by player $i$, denoted by $S_i$. $S_i$ is called strategic set of player $i$. Each player chooses its strategy $a_a\in S_i$ simultaneously and independently (without the influence from other players); \\
+(iii) Payoff function of each player, denoted by $V_i(a_1,a_2,\ldots,a_n)$ or 
+$V_i(a_i,a_{-i})$, describing the payoff received by player $i$ given the strategies chosen by the players. Here, $a_{-i}$ =
+$(a_1,a_2,\ldots,a_{i-1},a_{i+1},\ldots,a_n)$ denotes actions taken by other players. Mathematically, the games in normal form can be described as an order 
+triple $G=(P,\{S_i\}_{i\in P},\{V_i\}_{i\in P})$. 
+\end{definition}
+
+e.g. for a 2-player Paper-Scissor-rock games, its normal form can be expressed as: \\
+1. Set of players: $N = \{1,2\}$;\\
+2. Strategic set of player $i$: $S_i = \{\text{Paper},\text{Scissor}, \text{Rock} \}$ (Denoted by P, S, R respectively);\\
+3. Payoff function: $V_i(R,R) = V_i(S,S) = V_i(P,P) = 0$, $V_i(R,S) = V_i(S,P) = V_i(P,R) = 1$, \\
+$V_i(R,P) = V_i(S,R) = V_i(P,S) = -1$\\
+The payoff functions can also be expressed as: \\
+\[
+\begin{array}{|*{4}{c|}}
+\hline
+ & Paper & Scissor & Rock \\
+\hline
+Paper & (0,0) & (-1,1) & (1,-1) \\
+\hline
+Scissor& (1,-1) & (0,0) & (-1,1) \\
+\hline
+Rock & (-1,1) & (1,-1) & (0,0) \\
+\hline
+\end{array}
+\]
+Such games is sometimes called matrix games.
+%
+%
+%
+%
+%
+\section{equilibrium(pure strategy)}
+Premise: All players are rational; All players are intelligent; All players should engage in non-cooperative behaviour.\\
+We want to predict the strategy adopted by other players in order to determine our own best strategy. We have 2 ways of achieveing this: \\
+1. Eliminating dominated strategies - Rule out all strategies which the rivals will not choose. \\
+2. Best response and Nash equilibrium - Predict what will rivals do based on their payoff functions. \\
+%
+%
+%
+%
+%
+\subsection{Dominated strategy}
+We first assume that each player adopts pure strategy(strategy that a single player chooses a single action $a_i$ from his/her strategic set $S_i$).\\
+If the payoff of strategy A is always worse-off than strategy B for player 1, then we say that strategy A is strictly dominated by strategy B for player 1, and the strategy A is called dominated strategy.\\
+\begin{definition}[Dominated strategy for pure strategy]
+   We let $s_i\in S_i$ and $s_i^\prime \in S_i$ be two possible strategies for player $i$. We say 
+that $s_i$ is strictly dominated by the strategy $s_i^\prime$ if for any strategies adopted by other players (denoted by $s_{-i}$ =
+$(s_1,s_2,\ldots, s_{i-1},s_{i+1},\ldots, s_n)$), one has 
+$$V_i(s_i;s_{-i})<V_i(s_i^\prime;s_{-i})$$
+That is, player $i$ is always worse-off by adopting the strategy $s_i$ than $s_i'$, regardless of the strategies adopted by other players. 
+We say $s_i\in S_i$ is a dominated strategy for player $i$ if there is another 
+strategy $s_i^\prime \in S_i$ such that $s_i$ is strictly dominated by $s_i'$. 
+\end{definition}
+Then we can use dominated strategy to simplify the solution procedure: e.g. 
+\[
+\begin{array}{c|ccc|}
+ & \multicolumn{3}{c}{\textbf{Player 2}} \\
+\cline{2-4}
+\textbf{Player 1} & A & B & C \\
+\hline
+A & (4,\mathbf{2}) & (1,\mathbf{5}) & (5,4) \\
+\hline
+B & (3,\mathbf{3}) & (1,\mathbf{4}) & (3,2) \\
+\hline
+C & (2,\mathbf{4}) & (6,\mathbf{5}) & (6,7) \\
+\hline
+\end{array}
+\]
+Then we can rule out strategy A of player 2.
+%
+%
+%
+%
+%
+\subsection{Iterative Elimination of Strictly Dominated Strategies (IESDS)}
+We first consider player 1 and her strategic set $S_1$. We remove all dominated strategies from her strategic set. We then repeat this process for 
+player 2, 3, .. , n sequentially. Let $S_i^{(k)}$ denote the new strategic set of player 
+$i$ after k rounds of eliminations. \\
+Repeat the elimination process until $S_i^{(k+1)}=S_i^{(k)}$ for all $i$. That is, there is no more dominated strategy identified.
+\begin{definition}[Iterated-elimination equilibrium]
+   A strategic profile $s=(s_1,s_2,\ldots,s_n)$ is said to be iterated-eliminated equilibrium if it survives the process of IESDS. \\
+   $\mathbf{Attention:}$ it must be strictly dominated. ONLY $<$ , NO $\leq$. 
+\end{definition}
+e.g. Cournot Duopoly:\\
+There are two identical firms (Firm 1 and Firm 2) producing some products for a 
+same market. Two firms need to decide the number of products (denoted by $q_i\in[0, \infty), i= 1,2$) produced. It is given that \\
+1.The total cost of production of firm $i$ is $c(q_i)=10q_i$. \\
+2.The market price (selling price) of the product, which is driven by supply and demand, is assumed to be $p(q_1,q_2)=100-q_1-q_2$.  \\
+Suppose that two firms choose to produce $q_1$ and $q_2$ units of goods respectively, 
+the profits of the two firms. denoted by $V_1(q_1,q_2)$ and $V_2(q_1,q_2)$ respectively, can be expressed as \\
+$V_1(q_1,q_2) = \underbrace{q_1(100-q_1-q_2)}_{\text{revenue = price $\times$quantity}}-\underbrace{10q_1}_{\text{cost}} = 90q_1-q_1^2-q_1q_2$; \\
+$V_2(q_1,q_2) = q_2(100-q_1-q_2)-10q_2 = 90q_2-q_2^2-q_1q_2$. \\
+By applying IESDS, find the final strategies adopted by each firm. \\
+Solution:\\
+Step1: \\
+We first consider firm 1 and rule out dominated strategy from his strategic set. Intuitively, one should expect that it is always sub-optimal for the firms to produce too many products ($q_1$ is too large) or too few products ($q_1$ is too small). To see this, we note that
+\[
+\frac{\partial}{\partial q_1} V_1(q_1, q_2) = \underbrace{90 - 2q_1}_{\text{$<0$ for $q_i>45$}}-q_2\dots.(1)
+\]
+It is clear that $\frac{\partial V_1(q_1,q_2)}{\partial q_1} < 0$ for $q_1 > 45$ and $q_2 \geq 0$. This implies the firm 1's payoff will decrease if it chooses to increase $q_i$ beyond 45. Using this fact, one can deduce that for any $q_1 > 45$,
+\[
+\underbrace{V_1(q_1, q_2)}_{\text{payoff (choose } q_1 > 45)} < \underbrace{V_1(45, q_2)}_{\text{payoff (choose } q_1 = 45)}, \quad \text{for any } q_2 \geq 0.
+\]
+Since any $q_1 > 45$ is strictly dominated by the strategy $q_1 = 45$, so $q_1 > 45$ is a dominated strategy for player 1. Similarly, $q_2 > 45$ is a dominated strategy for firm 2.
+Both strategic sets are narrowed down to $S_1^{(1)} = S_2^{(1)} = [0,45]$.\\
+
+Step2: \\
+Given the new strategic set, we proceed to identify more dominated strategies. We consider player 1 again. Using the fact that $q_2 \leq 45$, one can observe that
+\[
+\frac{\partial}{\partial q_1} V_1(q_1, q_2) = 90 - 2q_1 - q_2 \geq 90 - 2q_1 - 45 = \underbrace{45 - 2q_1}_{\text{$>0$ for $q_1 < 22.5$}}.
+\]
+We observe that $\frac{\partial}{\partial q_1} V_1(q_1, q_2) > 0$ for $q_1 < 22.5$. This implies that
+\[
+\underbrace{V_1(q_1, q_2)}_{\text{payoff (choose } q_1 < 22.5)} < \underbrace{V_1(22.5, q_2)}_{\text{payoff (choose } q_1 = 22.5)} \quad \text{for any } q_1 < 22.5.
+\]
+Therefore, $q_1 < 22.5$ is also a dominated strategy for firm 1. Similarly, one can deduce that $q_2 < 22.5$ is a dominated strategy for firm 2. After the second stage of elimination, the strategy sets of both firms are narrowed down to
+\[
+S_1^{(2)} = S_2^{(2)} = [22.5,45].
+\]
+
+\textit{Remark: One may further reduce the strategic set using $q_i \geq 0$ (since $S_i^{(1)} = [0, 45]$). However, this only implies that $q_i > 45$ is a dominated strategy (same as Step 1).}\\
+Step3: \\
+We let $S_i^{(k)} = [a_k, b_k]$ be the strategic set of player $i$ after $k$-th round of elimination. We consider the $(k+1)^{th}$ round of the elimination process:
+
+Since $q_j \geq a_k$, we can deduce that
+\[
+\frac{\partial}{\partial q_i} V_i(q_i, q_j) = 90 - 2q_i - q_j \leq 90 - 2q_i - a_k.
+\]
+This implies that $\frac{\partial V_i}{\partial q_i} < 0$ when $q_i > \frac{90-a_k}{2}$. We get
+\[
+V_i(q_i; q_j) < V_i\left(\frac{90 - a_k}{2}; q_j\right) \quad \text{for } q_i > \frac{90 - a_k}{2} \text{ and } q_j \geq a_k.
+\]
+So any $q_i > \frac{90-a_k}{2}$ is a dominated strategy for player $i$.
+
+Similarly, using the fact that $q_j \leq b_k$, we obtain
+\[
+\frac{\partial}{\partial q_i} V_i(q_i, q_j) = 90 - 2q_i - q_j \geq 90 - 2q_i - b_k.
+\]
+This implies that $\frac{\partial V_i}{\partial q_i} > 0$ when $q_i < \frac{90-b_k}{2}$. We get
+\[
+V_i(q_i; q_j) < V_i\left(\frac{90 - b_k}{2}; q_j\right) \quad \text{for } q_i < \frac{90 - b_k}{2} \text{ and } q_j \leq b_k.
+\]
+So any $q_i < \frac{90-b_k}{2}$ is a dominated strategy for player $i$.
+
+Combining the results, we deduce that $S_i^{(k+1)} = [a_{k+1}, b_{k+1}]$ where
+\[
+a_{k+1} = \frac{90 - b_k}{2}, \quad b_{k+1} = \frac{90 - a_k}{2}.
+\]
+
+By continuing the elimination process, one can narrow down the strategy sets continuously and we summarize the result in the following table:
+\begin{center}
+\begin{tabular}{c|c}
+$k$ & $S_1^{(k)} = S_2^{(k)}$ \\
+\hline
+1 & $[0, 45]$ \\
+2 & $[22.5, 45]$ \\
+3 & $[22.5, 33.75]$ \\
+4 & $[28.125, 33.75]$ \\
+5 & $[28.125, 30.9375]$ \\
+6 & $[29.53125, 30.9375]$ \\
+7 & $[29.53125, 30.23438]$ \\
+$\vdots$ & $\vdots$ \\
+$\infty$ & $[30, 30]$ \\
+\end{tabular}
+\end{center}
+
+We observe from the above table that the upper bound and lower bound of the strategic set are getting close to 30. In fact, one can show that the strategic sets will become a singleton. Thus, we conclude that both firms will produce 30 units of products respectively in equilibrium.\\
+Proof: using the recursive relation derived in Step 3. We summarize the key steps below and omit the detailed verification.
+
+Recall that $S_i^{(1)} = [0,45]$ and $S_i^{(2)} = [22.5, 45]$ from Step 1 and 2. We take $a_1 = 0$, $a_2 = 22.5$, $b_1 = b_2 = 45$.
+\textbf{Step 1:} Argue that $22.5 \leq a_k \leq b_k \leq 45$ for $k \geq 2$. This can be done using mathematical induction.
+\\ \textbf{Step 2:} Argue that the sequence $\{a_k\}$ is increasing and $\{b_k\}$ is decreasing, i.e., $a_k \leq a_{k+1} \leq b_{k+1} \leq b_k$, using mathematical induction.
+\\ \textbf{Step 3:} Combining the above results, one can deduce that:
+$S_i^{(k+1)} \subseteq S_i^{(k)} \subseteq [0, 45]$ \\
+Both sequences $\{a_1, a_2, \dots\}$ and $\{b_1, b_2, \dots\}$ converge since the sequence $\{a_k\}$ is increasing and bounded from above, and the sequence $\{b_k\}$ is decreasing and bounded from below.
+\\ \textbf{Step 4:} We let $\lim_{k \to \infty} a_k = a$ and $\lim_{k \to \infty} b_k = b$. By taking limits on the recursive relations, one can show that $a=b=30$. So that $S_i^{(\infty)} = \bigcap_{k=1}^{\infty} S_i^{(k)} = [a, b] = [30, 30]$, which is a singleton.
+Thus, we conclude that both firms will produce 30 units of products in equilibrium.\\
+\\
+Mind that IESDS may not lead to unique solution. It is because the scheme only rule out all strategies that are obviously (or always) sub-optimal for the players.
+%
+%
+%
+%
+%
+\subsection{Best response and Nash equilibrium}
+In a n-person games, a player needs to figure out all possible strategies that 
+will be adopted by other players in order to determine her own optimal strategy. We call such prediction as belief (denoted by $B_i$) of the player. 
+\begin{definition}[Belief]
+In an $n$-person game, a player's belief $B_i$ is a subset of 
+\[
+S_{-i} = S_1 \times S_2 \times \dots \times S_{i-1} \times S_{i+1} \times \dots \times S_n
+\]
+that collects a set of possible strategies adopted by other players.
+\end{definition}
+Initially, a player's belief will be the entire strategic sets of other players. Since all players are rational and intelligent, the belief can be sharpen by considering the optimality of his opponents. One possible way is to eliminate all strategies that won't be chosen by the opponents such as dominated strategy. 
+\begin{definition}[Best response]
+   Given a set of opponents' strategy $s_{-i} \in S_{-i}$, a player $i$'s strategy $s_i^* \in S_i$ is said to be a \textbf{best response} to the strategy $s_{-i}$ if and only if the corresponding payoff of player $i$ is maximized over his strategic set:
+\[
+V_i(s_i^*; s_{-i}) = \max_{s_i \in S_i} V_i(s_i; s_{-i}).
+\]
+Here, the collection of best responses (with respect to $s_{-i}$) is denoted by $BR_i(s_{-i})$.
+
+\end{definition}
+Remark:\\
+1. The best response to the given opponents' strategies $s_{-i}$ may not be 
+unique. \\
+2. The best response depends on the rival's strategy.  \\
+\\
+A profile $s^* = (s_1^*, s_2^*, \dots, s_n^*)$ is the desired outcome of the games only when player $i$ has made correct prediction on opponents' strategies and $s_i^*$ is player $i$'s best response to opponents' strategies.
+\begin{definition}[Nash equilibrium for pure strategy]
+   A strategic profile $\mathbf{s}^* = (s_1^*, s_2^*, \dots, s_n^*)$ is called a \textbf{pure strategy Nash equilibrium} if and only if for any player $i$:
+\[
+V_i(s_i^*; s_{-i}^*) = \max_{s \in S_i} V_i(s; s_{-i}^*) \geq V_i(s_i; s_{-i}^*), \quad \text{for any } s_i \in S_i\ldots \quad (\ast\ast\ast)
+\]
+In other words, no player has a strict incentive to deviate from the strategy $s_i^*$ and adopt other strategies.
+\end{definition}
+e.g. (Cournot Duopoly)\\
+player 1's best response: 
+\[
+\left.\frac{\partial V_1(q_1, q_2)}{\partial q_1}\right|_{q_1 = q_1^*(q_2)} = 0 
+\quad\Rightarrow\quad (90 - 2q_1 - q_2)\Big|_{q_1 = q_1^*(q_2)} = 0
+\]
+
+\[
+\Rightarrow\quad q_1^*(q_2) = \frac{90 - q_2}{2} \qquad (1)
+\]
+
+Since 
+$
+\left.\frac{\partial^2 V_1(q_1, q_2)}{\partial q_1^2}\right|_{q_1 = q_1^*(q_2)} = -2 < 0,
+$
+player 1's payoff is maximized when \( q_1 = q_1^*(q_2) \), and \( q_1^* = q_1^*(q_2) \) is the best response of player 1.\\
+Similarly, we can get player 2's best response $q_2^*(q_1) = \frac{90 - q_1}{2}$\quad (2).\\
+With (1) and (2), we get $(q_1^*,q_2^*) = (30,30)$ is the (unique) Nash equilibrium of the 
+games. \\
+Remark:\\
+1. pure-strategy Nash equilibrium does not always exist.\\
+2. Any dominated strategy is never a best response.\\
+3. A strategic profile $s^*=(s_1^*,s_2^*,\dots,s_n^*)$ uniquely survives IESDS in a \textbf{finite} normal-form game(finite players, finite strategies), then $s^*$ is Nash equilibrium.\\
+(Proof of 3: 
+Assume the opposite as not equilibrium, then for any $s^*$, always have $s^{(1)}, s^{(2)}, \dots,s^{(n)}$ such that $s^{(k)}$ have higher payoff than $s^*$, and since n is arbitrary, we can get infinite strategies $s^{(k)}$ from this process, which is contradicted to "finite" in the assumption.)
+%
+%
+%
+%
+%
+\subsection{equilibrium refinement}
+Equilibrium refinement is the process to impose some addition conditions to rule out the equilibria that are unlikely to occur, including: \\
+1. Pareto-dominance: Equilibrium selection with respect to the players' payoff. \\
+2. Risk-dominance: Equilibrium selection with respect to the “stability” of the equilibrium. 
+\begin{definition}[Pareto-dominance and Pareto-optimality]
+   In an $n$-person game, we say a strategic profile (or equilibrium) $\mathbf{s} = (s_1, s_2, \dots, s_n)$ \textbf{Pareto dominates} another strategic profile $s' = (s_1', s_2', \dots, s_n')$ if and only if
+\[
+V_i(s_i; s_{-i}) \geq V_i(s_i'; s'_{-i}), \quad \text{for all } i = 1,2,\dots,n,\quad (1)
+\]
+and
+\[
+V_i(s_i; s_{-i}) > V_i(s_i'; s'_{-i}), \quad \text{for some } i = 1,2,\dots,n. \quad (2)
+\]
+
+On the other hand, we say a strategic profile $\mathbf{s}^* = (s_1^*, s_2^*, \dots, s_n^*)$ is \textbf{Pareto optimal} if there is no strategy $\mathbf{s}' (\neq \mathbf{s}^*)$ that Pareto dominates it.
+\end{definition}
+Remark: \\
+1. (1): none of the players will be worse off if all 
+players chooses the strategy s instead of s'. \\
+2. (2): at least one of the players will be better off if all players chooses the strategy s instead of s'.\\
+3. the Pareto optimal equilibria is not necessarily to be unique. (This may happen: any equilibrium is not Pareto-dominated by any other equilibrium. )\\
+\\
+Risk Dominance: Given a pair of Nash equilibria [($s_1^*,s_2^*$) and ($s_1^{**},s_2^{**}$)]. To compare the stabilities, for the Nash equilibrium ($s_1^*,s_2^*$), we define the \textbf{deviation cost} (the product of losses if choose to play another strategy) as: 
+\[
+\Phi(s_1^*, s_2^*) = 
+\underbrace{\bigl(V_1(s_1^*; s_2^*) - V_1(s_1^{**}; s_2^*)\bigr)}_{
+\substack{\text{player 1's loss} \\ \text{(choose } s_1^{**} \text{ instead of } s_1^*\text{)}}
+}
+\underbrace{\bigl(V_2(s_2^*; s_1^*) - V_2(s_2^{**}; s_1^*)\bigr)}_{
+\substack{\text{player 2's loss} \\ \text{(choose } s_2^{**} \text{ instead of } s_2^*\text{)}}
+}.
+\]
+Similarly, one can define the corresponding deviation cost for $(s_1^{**}, s_2^{**})$. That is,
+\[
+\Phi(s_1^{**}, s_2^{**}) = 
+\underbrace{\bigl(V_1(s_1^{**}; s_2^{**}) - V_1(s_1^*; s_2^{**})\bigr)}_{
+\substack{\text{player 1's loss} \\ \text{(choose } s_1^* \text{ instead of } s_1^{**}\text{)}}
+}
+\underbrace{\bigl(V_2(s_2^{**}; s_1^{**}) - V_2(s_2^*; s_1^{**})\bigr)}_{
+\substack{\text{player 2's loss} \\ \text{(choose } s_2^* \text{ instead of } s_2^{**}\text{)}}
+}.
+\]
+\textbf{Attention:} when calculating $V_2(s_2^*; s_1^{**})$, read the matrix in reverse order.
+\begin{definition}[Risk-dominance, Harsanyi and Selten (1988)]
+   Let $(s_1^*, s_2^*)$ and $(s_1^{**}, s_2^{**})$ be two pure strategy Nash equilibria in a 2-person game. $(s_1^*, s_2^*)$ is said to be \textbf{risk-dominant} against another equilibrium $(s_1^{**}, s_2^{**})$ if and only if
+\[
+\Phi(s_1^*, s_2^*) > \Phi(s_1^{**}, s_2^{**}).
+\]
+\end{definition}
+Remark:\\
+1. Higher deviation cost $\implies$ less incentive to deviate $\implies$ the equilibrium is more stable.\\
+2. Higher deviation cost $\implies$ risk-dominant
+%
+%
+%
+%
+%
+\section{Mixed strategy}
+\begin{definition}[Mixed strategy for finite strategic set]
+Let $S_i = \{a_{i1}, a_{i2}, \dots, a_{iN_i}\}$ be the strategy set of player $i$.
+A \textbf{mixed strategy} of player $i$ is a vector $\sigma_i = \bigl(\sigma_i(a_{i1}), \sigma_i(a_{i2}), \dots, \sigma_i(a_{iN_i})\bigr)$ that describes a probability distribution over the strategy set $S_i$,
+where $\sigma_i(a_{ij}) = P(s_i = a_{ij})$
+denotes the probability that player $i$ chooses action $a_{ij}$.
+(Note: $N_i$ denotes the number of actions in $S_i$.)
+\end{definition}
+Here, the probability $\sigma_i(a_{ij})$ must satisfy the following properties:
+\begin{itemize}
+    \item $\sigma_i(a_{ij}) \geq 0$, and
+    \item $\displaystyle\sum_{j=1}^{N_i} \sigma_i(a_{ij}) = 1$.
+\end{itemize}
+Player's payoff: Expected payoff
+
+Given the mixed strategies $\sigma_1, \sigma_2, \dots, \sigma_n$ chosen by players, player $i$'s expected payoff, denoted by $V_i(\sigma_i; \sigma_{-i})$, can be expressed as\\
+$
+V_i(\sigma_i; \sigma_{-i}) = \sum_{\vec{a} \in S_1 \times \dots \times S_n} P\bigl(\text{players choose } \vec{a} = (a_1, a_2, \dots, a_n)\bigr) \, V_i(a_i; a_{-i})
+$\\
+$= \sum_{\vec{a} \in S_1 \times \dots \times S_n} \Bigl( \prod_{k=1}^{n} P\bigl(\text{player } k \text{ chooses } a_k\bigr) \Bigr) \, V_i(a_i; a_{-i})$
+$
+= \sum_{\vec{a} \in S_1 \times \dots \times S_n} \Bigl( \prod_{k=1}^{n} \sigma_k(a_k) \Bigr) \, V_i(a_i; a_{-i})$\\
+$
+= \sum_{a_i \in S_i} \sum_{a_{-i} \in S_{-i}} \sigma_i(a_i) \Bigl( \prod_{\substack{k=1,\dots,n \\ k \neq i}} \sigma_k(a_k) \Bigr) \, V_i(a_i; a_{-i})
+$
+$
+= \sum_{a_i \in S_i} \sum_{a_{-i} \in S_{-i}} \sigma_i(a_i) \underbrace{\Bigl( \prod_{\substack{k=1,\dots,n \\ k \neq i}} \sigma_k(a_k) \Bigr)}_{\text{denoted by } \sigma_{-i}(a_{-i})} V_i(a_i; a_{-i})
+$
+$
+= \sum_{a_i \in S_i} \sigma_i(a_i) \underbrace{\Bigl( \sum_{a_{-i} \in S_{-i}} \sigma_{-i}(a_{-i}) V_i(a_i; a_{-i}) \Bigr)}_{V_i(a_i; \sigma_{-i})}.
+$\\
+The second equality follows from the assumption that each player chooses her strategy independently.
+
+
+
+\subsection{Nash equilibrium for mixed strategy}
+\begin{definition}[Nash equilibrium for mixed strategy]
+   The strategic profile $\sigma = (\sigma_1^*, \sigma_2^*, \dots, \sigma_n^*)$ is a Nash equilibrium if and only if for any player $i$,
+\[
+V_i(\sigma_i^*; \sigma_{-i}^*) \ge V_i(\sigma_i; \sigma_{-i}^*),
+\]
+for any mixed strategy $\sigma_i$ of player $i$.
+\end{definition}
+e.g. We consider the game with the following payoff matrix:
+
+\[
+\begin{array}{c|cc}
+& \text{Sushi (S)} & \text{Buffet (B)} \\
+\hline
+\text{Sushi (S)} & (3,2) & (0,1) \\
+\text{Buffet (B)} & (0,0) & (2,3) \\
+\end{array}
+\]
+
+\noindent
+Find all possible mixed-strategy Nash equilibria of this game.
+
+\bigskip
+\noindent
+\textbf{Solution}
+
+Let \(\sigma_1 = (p, 1-p)\) and \(\sigma_2 = (q, 1-q)\) be the mixed strategies of the two players. The expected payoffs are
+\[
+\begin{aligned}
+V_1(p; q) &= pq(3) + p(1-q)(0) + (1-p)q(0) + (1-p)(1-q)(2) \\
+          &= 5pq - 2p - 2q + 2, \\[4pt]
+V_2(q; p) &= pq(2) + p(1-q)(1) + (1-p)q(0) + (1-p)(1-q)(3) \\
+          &= 4pq - 2p - 3q + 3.
+\end{aligned}
+\]
+
+Given player~2's mixed strategy \(\sigma_2 = (q, 1-q)\), we determine player~1’s best response \(\sigma_1^* = (p^*, 1-p^*)\). Note that
+\[
+\frac{\partial V_1(p; q)}{\partial p} = 5q - 2
+\;\Longrightarrow\;
+\frac{\partial V_1(p; q)}{\partial p}
+\begin{cases}
+> 0, & \text{if } q > \frac{2}{5},\\[4pt]
+= 0, & \text{if } q = \frac{2}{5},\\[4pt]
+< 0, & \text{if } q < \frac{2}{5}.
+\end{cases}
+\]
+Thus player~1's best response is
+\[
+p^* =
+\begin{cases}
+1, & \text{if } q > \frac{2}{5},\\[4pt]
+x, & \text{if } q = \frac{2}{5},\\[4pt]
+0, & \text{if } q < \frac{2}{5},
+\end{cases}
+\]
+where \(x\) is any number between \(0\) and \(1\). (When \(q = \frac{2}{5}\), the payoff \(V_1\bigl(p; \frac{2}{5}\bigr) = \frac{6}{5}\) is independent of \(p\).)
+
+\bigskip
+\noindent
+Given player~1’s mixed strategy \(\sigma_1 = (p, 1-p)\), we determine player~2’s best response \(\sigma_2^* = (q^*, 1-q^*)\). Note that
+\[
+\frac{\partial V_2(q; p)}{\partial q} = 4p - 3
+\;\Longrightarrow\;
+\frac{\partial V_2(q; p)}{\partial q}
+\begin{cases}
+> 0, & \text{if } p > \frac{3}{4},\\[4pt]
+= 0, & \text{if } p = \frac{3}{4},\\[4pt]
+< 0, & \text{if } p < \frac{3}{4}.
+\end{cases}
+\]
+Thus player~2’s best response is
+\[
+q^* =
+\begin{cases}
+1, & \text{if } p > \frac{3}{4},\\[4pt]
+y, & \text{if } p = \frac{3}{4},\\[4pt]
+0, & \text{if } p < \frac{3}{4},
+\end{cases}
+\]
+where \(y\) is any number between \(0\) and \(1\). (When \(p = \frac{3}{4}\), the payoff \(V_2\bigl(q; \frac{3}{4}\bigr) = \frac{3}{2}\) is independent of \(q\).)
+
+\bigskip
+\noindent
+The two curves \(p^*\) and \(q^*\) intersect at \((p^*, q^*) = (0,0)\), \(\bigl(\frac{3}{4}, \frac{2}{5}\bigr)\) and \((1,1)\). The first and third intersection points correspond to the pure‑strategy Nash equilibria \((B,B)\) and \((S,S)\) respectively. The unique (non‑degenerate) mixed‑strategy Nash equilibrium is
+\[
+\sigma_1^* = (p^*, 1-p^*) = \Bigl(\frac{3}{4},\; \frac{1}{4}\Bigr), \qquad
+\sigma_2^* = (q^*, 1-q^*) = \Bigl(\frac{2}{5},\; \frac{3}{5}\Bigr).
+\]
+%
+%
+%
+%
+%
+\subsection{Indifference principle}
+The indifference principle states that given a mixed (or pure) strategy adopted by other players, the player $i$'s payoff remains constant over all pure strategy $s_i$ chosen by the player in her mixed strategy. 
+\begin{theorem}[Indifference principle]
+   Let \(\sigma^* = (\sigma_1^*, \sigma_2^*, \dots, \sigma_n^*)\) be a mixed-strategy Nash equilibrium. For any pair of actions \(a_{i}^1 \in S_i\) and \(a_{i}^2 \in S_i\) with \(\sigma_i^*(a_{i}^1) > 0\) and \(\sigma_i^*(a_{i}^2) > 0\), we have
+\[
+V_i(a_{i}^1; \sigma_{-i}^*) = V_i(a_{i}^2; \sigma_{-i}^*).
+\]
+\end{theorem}
+e.g.\noindent
+\[
+\begin{array}{c|cc}
+& \text{Work (W)} & \text{Do nothing (NW)} \\
+\hline
+\text{Aid (A)} & (3,2) & (-1,3) \\
+\text{Does not aid (NA)} & (1,1) & (0,0) \\
+\end{array}
+\]
+
+\noindent
+Identify all Nash equilibria using the indifference principle.\\
+\textbf{Solution:}
+We determine the best response of each player. This can be done using the indifference principle.
+For the government (Player~1), let \(\sigma_2 = (q, 1-q)\) be a given mixed strategy of Player~2 and let \(\sigma_1 = (p, 1-p)\) be Player~1’s mixed strategy. Consider
+\[
+V_1(A; \sigma_2) = V_1(NA; \sigma_2)
+\;\Longleftrightarrow\;
+3q + (-1)(1-q) = q + 0(1-q)
+\;\Longleftrightarrow\;
+q = \frac{1}{3}.
+\]
+
+Now we examine three cases:
+
+\begin{itemize}
+\item If \(q = \frac{1}{3}\), the indifference principle implies that Player~1’s best response is to mix between \(A\) and \(NA\) (i.e. \(p \in (0,1)\)). The expected payoff of Player~1 is
+\[
+V_1(\sigma_1; \sigma_2) = pV_1(A; \sigma_2) + (1-p)V_1(NA; \sigma_2)
+\overset{V_1(A;\sigma_2)=V_1(NA;\sigma_2)}{=} V_1(A; \sigma_2),
+\]
+which is independent of \(p\). Hence the best response is \(\sigma_1^* = (p, 1-p)\) for any \(p \in [0,1]\).
+
+\item If \(q < \frac{1}{3}\), we have \(V_1(A; \sigma_2) < V_1(NA; \sigma_2)\). By the proof of the indifference principle, Player~1 should choose \(NA\) with certainty. Thus the best response is \(\sigma_1^* = (0,1)\) (i.e. \(p=0\)).
+
+\item If \(q > \frac{1}{3}\), we have \(V_1(A; \sigma_2) > V_1(NA; \sigma_2)\). Similarly, Player~1 should choose \(A\) with certainty, so the best response is \(\sigma_1^* = (1,0)\) (i.e. \(p=1\)).
+\end{itemize}
+Next we find Player~2's best response \(\sigma_2^*\) given Player~1’s strategy \(\sigma_1 = (p, 1-p)\). First,
+\[
+V_2(W; \sigma_1) = V_2(NW; \sigma_1)
+\;\Longleftrightarrow\;
+2p + 1(1-p) = 3p + 0(1-p)
+\;\Longleftrightarrow\;
+p = \frac{1}{2}.
+\]
+Again we consider three cases:
+\begin{itemize}
+\item If \(p = \frac{1}{2}\), the indifference principle implies that Player~2’s best response is to mix between \(W\) and \(NW\) (i.e. \(q \in (0,1)\)). The expected payoff of Player~2 is
+\[
+V_2(\sigma_2; \sigma_1) = qV_2(W; \sigma_1) + (1-q)V_2(NW; \sigma_1)
+\overset{V_2(W;\sigma_1)=V_2(NW;\sigma_1)}{=} V_2(W; \sigma_1),
+\]
+which is independent of \(q\). Hence the best response is \(\sigma_2^* = (q, 1-q)\) for any \(q \in [0,1]\).
+
+\item If \(p < \frac{1}{2}\), we have \(V_2(W; \sigma_1) > V_2(NW; \sigma_1)\). By the indifference principle, Player~2 should choose \(W\) with certainty, so the best response is \(\sigma_2^* = (1,0)\) (i.e. \(q=1\)).
+
+\item If \(p > \frac{1}{2}\), we have \(V_2(W; \sigma_1) < V_2(NW; \sigma_1)\). Similarly, Player~2 should choose \(NW\) with certainty, so the best response is \(\sigma_2^* = (0,1)\) (i.e. \(q=0\)).
+\end{itemize}
+
+
+Thus, the unique (non‑degenerate) mixed‑strategy Nash equilibrium is
+\[
+\sigma_1^* = (p^*, 1-p^*) = \Bigl(\frac{1}{2},\; \frac{1}{2}\Bigr), \qquad
+\sigma_2^* = (q^*, 1-q^*) = \Bigl(\frac{1}{3},\; \frac{2}{3}\Bigr).
+\]
+$\textbf{Remark:}$\\
+1. We can also claim that a game has no mixed strategy Nash equilibrium if the $p^*$ or $q^*$ is not in $(0,1)$. \\
+2. And if you have 3 pure strategy to choose for 2 players respectively(e.g. Paper-Scissor-Rock), then you can first examine if it is possible for one player to use pure strategy, then examine if it is possible for one player to use mix only 2 pure strategies.\\
+\\
+$\textbf{Proof}$ of dominated strategy never play mixed strategy Nash equilibrium:\\
+In an \(n\)-person game, let \(s_i^0 \in S_i\) be a strictly dominated pure strategy of player~\(i\). Show that player~\(i\) never plays \(s_i^0\) in any mixed-strategy Nash equilibrium \(\sigma^* = (\sigma_1^*, \sigma_2^*, \dots, \sigma_n^*)\). Suppose $\sigma_i^*(s_i^0) > 0$.
+
+
+Since \(s_i^0\) is strictly dominated, there exists another strategy \(s_i'\) that strictly dominates it; i.e.
+\[
+V_i(s_i^0; s_{-i}) < V_i(s_i'; s_{-i}) \qquad \text{for every pure strategy } s_{-i} \in S_{-i}.
+\]
+
+Construct the following mixed strategy for player~\(i\):
+\[
+\sigma_i'(s_i) =
+\begin{cases}
+\sigma_i^*(s_i) & \text{if } s_i \neq s_i^0,\, s_i',\\[1mm]
+0 & \text{if } s_i = s_i^0,\\[1mm]
+\sigma_i^*(s_i') + \sigma_i^*(s_i^0) & \text{if } s_i = s_i'.
+\end{cases}
+\]
+By definition, we can show $V_i(\sigma_i'; \sigma_{-i}^*) > V_i(\sigma_i; \sigma_{-i}^*)$. Thus $\sigma_i^*$ is not the best response to $\sigma_{-i}^*$, so we can conclude that $\sigma_i^*(s_i^0) = 0$.
+%
+%
+%
+%
+%
+\subsection{Dominated strategy: Extended definition}
+\begin{definition}[Dominated strategy: Extended definition]
+   A pure strategy $s_i\in S_i$ is said to be strictly dominated by a mixed strategy $\sigma_i$ if and only if 
+$$V_i(s_i;s_{-i}) < V_i(\sigma_i;s_{-i})\dots(*)$$
+for any combination of opponents' pure strategies $s_{-i}\in S_{-i}$. \\
+A pure strategy $s_i\in S_i$ is said to be a dominated strategy if it is strictly 
+dominated by some mixed strategy $\sigma_i$. 
+\end{definition}
+
+\textbf{Remarks about the definition}
+
+\begin{itemize}
+\item The definition above is stated for the case where the rival uses a \emph{pure} strategy. However, one can show that for any mixed strategy \(\sigma_{-i}\) of the rival,
+\[
+V_i(s_i; \underline{\sigma_{-i}}) = \sum_{s_{-i} \in S_{-i}} \sigma_{-i}(s_{-i}) V_i(s_i; s_{-i})
+< \sum_{s_{-i} \in S_{-i}} \sigma_{-i}(s_{-i}) V_i(\sigma_i; s_{-i})
+= V_i(\sigma_i; \underline{\sigma_{-i}}).
+\]
+Thus, the dominance relation remains valid even when the rival employs a mixed strategy. In practice, checking inequality~\((*)\) is often the most convenient way to identify dominated strategies.
+
+\item If a pure strategy \(s_i\) is dominated by a mixed strategy \(\sigma_i\), one can show that $s_i$ can be dominated by another mixed strategy \(\sigma_i'\) with \(\sigma_i'(s_i)=0\).
+
+To see this, note that
+\[
+V_i(s_i; s_{-i}) < V_i(\sigma_i; s_{-i})
+= \sum_{s \in S_i} \sigma_i(s) V(s; s_{-i})
+= \sum_{s \neq s_i} \sigma_i(s) V(s; s_{-i}) \;+\; \sigma_i(s_i) V(s_i; s_{-i}).
+\]
+\[
+\implies V_i(s_i; s_{-i}) < \sum_{s \neq s_i} \underbrace{\frac{\sigma_i(s)}{1 - \sigma_i(s_i)}}_{\displaystyle\sigma_i'(s)} V(s; s_{-i}),
+\]
+Consider a mixed strategy \(\sigma_i'\) defined by
+\[
+\sigma_i'(s_i)=0 \quad\text{and}\quad
+\sigma_i'(s)=\frac{\sigma_i(s)}{1-\sigma_i(s_i)}\ \text{for } s\neq s_i.
+\]
+One can verify that
+\[
+\sum_{s\in S_i} \sigma_i'(s)
+= \sum_{s\neq s_i} \frac{\sigma_i(s)}{1-\sigma_i(s_i)}
+= \frac{1-\sigma_i(s_i)}{1-\sigma_i(s_i)} = 1,
+\]
+and
+\[
+V_i(s_i; s_{-i}) 
+< \sum_{s\neq s_i} \underbrace{\frac{\sigma_i(s)}{1-\sigma_i(s_i)}}_{\displaystyle\sigma_i'(s)} V_i(s; s_{-i})
+= V_i(\sigma_i'; s_{-i}).
+\]
+\end{itemize}
+\begin{theorem}[Nash’s existence theorem]
+   For any n-person normal form games with finite strategic sets $S_i$ for every player, there exists at least one mixed strategy Nash equilibrium. 
+\end{theorem}
+(*Note: Here, pure strategy Nash equilibrium is treated as a special case of mixed strategy Nash equilibrium) \\
+\textbf{Proof: }Given the strategy set $S_i$ of each player, we define $\Delta S_i$ as the collection of all mixed strategies available to player~$i$; that is,
+\[
+\Delta S_i = \Bigl\{ 
+\underbrace{(\sigma_i(a_{i1}), \sigma_i(a_{i2}), \dots, \sigma_i(a_{iN_i}))}_{\sigma_i}
+\Bigm|
+\sigma_i(a_{i1}) + \dots + \sigma_i(a_{iN_i}) = 1
+\Bigr\}.
+\]
+Let $\Delta S = \Delta S_1 \times \Delta S_2 \times \dots \times \Delta S_n$ be the set of mixed-strategy profiles of the $n$ players.
+Given a strategy profile $\sigma = (\sigma_1,\sigma_2,\dots,\sigma_n)$, recall that $BR_i(\sigma)$ denotes player~$i$'s best response (a mixed strategy) to the rivals’ strategies $\sigma_{-i}$, and
+$BR(\sigma) = \bigl(BR_1(\sigma), BR_2(\sigma), \dots, BR_n(\sigma)\bigr)$
+denotes the best response of n players to the strategic profile $\sigma$. \\
+Recall that a profile $\sigma^* = (\sigma_1^*,\sigma_2^*,\dots,\sigma_n^*)$ is a Nash equilibrium if and only if $\sigma_i^*$ is a best response to $\sigma_{-i}^*$ for every player~$i$; that is, $BR_i(\sigma^*) = \sigma_i^*$. Hence
+\[
+BR(\sigma^*) = \sigma^*.
+\]
+Thus $\sigma^*$ is a fixed point of the correspondence $BR(\sigma)$. Consequently, proving the existence of a Nash equilibrium reduces to showing that the correspondence
+$BR : \Delta S \rightrightarrows \Delta S$ has a fixed point.\\
+To see if this fixed point exists, we introduce the following theorem: 
+\begin{theorem}[Kakutani’s fixed point theorem]
+   Let \(C : X \rightrightarrows X\) be a correspondence where \(X \subseteq \mathbb{R}^p\) and \(C(x) \subseteq X\) for all \(x \in X\).
+Suppose that
+
+\begin{enumerate}
+\item \(X\) is non‑empty, closed, bounded, and convex;  \\
+      (A set \(X\) is said to be closed if and only if for any sequence \(\{x_n\}_{n\in\mathbb{N}}\) with \(x_n\in X\) and \(\lim_{n\to\infty} x_n = x_0\), we have \(x_0 \in X\).)
+\item \(C(x)\) is non‑empty for all \(x \in X\);\\
+   (A set \(B\) is said to be convex if and only if for any \(x,y \in B\), we have \(\alpha x + (1-\alpha)y \in B\) for any \(\alpha\in[0,1]\).)
+
+\item \(C(x)\) is convex for all \(x\);  
+      \item \(C\) has closed graph, i.e. the set \(\{(x, C(x)) : x \in X\}\) is closed.
+\end{enumerate}
+
+Then there exists \(x^* \in X\) such that
+\[
+C(x^*) = x^*.
+\]
+\end{theorem}
+Thus, let $p_{ij} = \sigma_i(a_{ij})$, where $a_{ij}\in S_i$.\\
+\\
+\textbf{For condition 1:} \\
+Obviously \(\Delta S_i\) is non-empty for all $i$, so \(\Delta S\) is non-empty.\\
+\(0 \le p_{ij} \le 1\) for all $i,j$, thus \(\Delta S_i \subseteq [0,1]^{N_i}\) and \(\Delta S_i\) is bounded.\\
+let \(\sigma_i^{(n)} \in \Delta S_i\) (where \(\sigma_i^{(n)} = (p_{i1}^{(n)}, p_{i2}^{(n)}, \dots, p_{iN_i}^{(n)})\)) be a sequence of vectors which \(\lim_{n\to\infty} \sigma_i^{(n)} = \sigma_i^* = (p_{i1}^*, p_{i2}^*, \dots, p_{iN_i}^*)\). 
+\(p_{ij}^{(n)} \ge 0\) for all \(n\), thus \(p_{ij}^* = \lim_{n\to\infty} p_{ij}^{(n)} \ge 0\).\\
+\(\sigma_i^{(n)} \in \Delta S_i\), so that $p_{i1}^{(n)} + p_{i2}^{(n)} + \dots + p_{iN_i}^{(n)} = 1$. Taking limit on both sides, we have $p_{i1}^* + p_{i2}^* + \dots + p_{iN_i}^* = 1$.\\
+It follows that \(\sigma_i^* \in \Delta S_i\). So that \(\Delta S_i\) is closed.\\
+Thus, for any \(\sigma_i^{(1)}, \sigma_i^{(2)} \in \Delta S_i\) and \(\alpha \in [0,1]\), we let \(\sigma = \alpha\sigma_i^{(1)} + (1 - \alpha)\sigma_i^{(2)}\). One can verify that:\\
+1. \(\alpha p_{ij}^{(1)} + (1 - \alpha)p_{ij}^{(2)} \ge 0\) as \(p_{ij}^{(1)}, p_{ij}^{(2)} \ge 0\)\\
+2. \(\displaystyle \sum_{j=1}^{N_i} \bigl(\alpha p_{ij}^{(1)} + (1 - \alpha)p_{ij}^{(2)}\bigr) = \alpha \underbrace{\sum_{j=1}^{N_i} p_{ij}^{(1)}}_{=1} + (1 - \alpha) \underbrace{\sum_{j=1}^{N_i} p_{ij}^{(2)}}_{=1} = 1\).\\
+So \(\sigma \in \Delta S_i\) and \(\Delta S_i\) is convex.\\
+\\
+\textbf{For condition 2: }\\
+Note that the (expected) payoff function $V_i(\sigma_i; \sigma_{-i}) = \sum p_{ij} V_i(a_{ij}; \sigma_{-i})$ is continuous with respect to $p_{ij}$ (as it is linear in $p_{ij}$) and the domain \(\Delta S_i\) is closed and bounded. 
+Thus from extreme value theorem, function $V_i(\sigma_i; \sigma_{-i})$ has a maximum in \(\Delta S_i\), which means best response exists. \\
+Thus $BR_i(\sigma)$ is non-empty. \\
+\\
+\textbf{For condition 3: }\\
+let \(\sigma_i^*\) and \(\sigma_i^{**}\) be two best responses to the rival’s 
+strategy \(\sigma_{-i}\), and let $M^* = V_i(\sigma_i^*; \sigma_{-i}) = V_i(\sigma_i^{**}; \sigma_{-i})$.\\
+As \(\sigma_i^*\) is a best response, we have $M^* = V_i(\sigma_i^*; \sigma_{-i}) \ge V_i(\sigma_i; \sigma_{-i}) \quad \text{for all } \sigma_i \in \Delta S_i$.\\
+Then we consider the strategy \(\sigma_0 = \beta\sigma_i^* + (1 - \beta)\sigma_i^{**}\), its payoff function is: 
+\[
+V_i(\sigma_0; \sigma_{-i}) 
+= \sum_{j=1}^{N_i} \bigl(\beta p_{ij}^* + (1 - \beta)p_{ij}^{**}\bigr) V_i(a_{ij}; \sigma_{-i}) \\
+= \beta \underbrace{\sum_{j=1}^{N_i} p_{ij}^* V_i(a_{ij}; \sigma_{-i})}_{= M^*} 
++ (1 - \beta) \underbrace{\sum_{j=1}^{N_i} p_{ij}^{**} V_i(a_{ij}; \sigma_{-i})}_{= M^*} \\
+= M^* \ge V_i(\sigma_i; \sigma_{-i})
+\]
+for all \(\sigma_i \in \Delta S_i\). Thus \(\sigma_0\) is also a best response and \(\sigma_0 \in BR(\sigma)\), thus \(BR(\sigma)\) is convex.\\
+\\
+\textbf{For condition 4: }\\
+let \(\lim_{n\to\infty} (\sigma^{(n)}, BR(\sigma^{(n)})) = (\sigma^*, \sigma^{**})\). To prove the graph is closed, it remains to show \(\sigma^{**} = BR(\sigma^*)\), i.e. \(\sigma^{**} = \lim_{n\to\infty} BR(\sigma^{(n)})\) is the best response to \(\sigma^*\).\\
+\(BR(\sigma^{(n)})\) is a best response to \(\sigma^{(n)}\), thus 
+\[
+V_i\bigl(BR_i(\sigma^{(n)}); \sigma_{-i}^{(n)}\bigr) \ge V_i\bigl(\sigma_i; \sigma_{-i}^{(n)}\bigr) \quad\ldots\ldots (*)
+\]
+for any \(\sigma_i\).\\
+\(V_i(\sigma_i; \sigma_{-i}) = \displaystyle\sum_{a_i\in S_i} \sum_{a_{-i}\in S_{-i}} \sigma_i(a_i)\sigma_{-i}(a_{-i}) V_i(a_i; a_{-i})\) is a continuous function of \(\sigma_i(s_i)\) and \(\sigma_{-i}(s_{-i})\) (and hence of \(\sigma_i\) and \(\sigma_{-i}\)). Taking \(n\to\infty\) in \((*)\), we know that 
+\[
+\lim_{n\to\infty} V_i\bigl(BR_i(\sigma^{(n)}); \sigma_{-i}^{(n)}\bigr) \ge \lim_{n\to\infty} V_i\bigl(\sigma_i; \sigma_{-i}^{(n)}\bigr)
+\]
+\[
+\Rightarrow V_i(\sigma_i^{**}; \sigma_{-i}^*) \ge V_i(\sigma_i; \sigma_{-i}^*).
+\]
+Then we can conclude that \(\sigma_i^{**}\) is the best response to \(\sigma_{-i}^*\) and \(\sigma^{**} = BR(\sigma^*)\).\\
+\\
+Thus, from Kakutani's fixed point theorem, there exists $\sigma^*$ s.t. $ BR(\sigma^*) = \sigma^* $ and the mixed strategy Nash equilibrium exists. 
+%
+%
+%
+%
+%
+\section{Additional topic: Existence of pure strategy Nash equilibrium in 2-person finite games }
+We focus on 2-person zero-sum games(e.g. Paper-Scissor-Rock), that is, 
+\[
+   V_1(s_1;s_2) + V_2(s_2;s_1) = 0
+\]
+for any $s_1, s_2 \in S_1\times S_2$.\\
+\textbf{1)}\\
+For player1: since all players are rational, so player 2 would try to maximized her payoff, thus payoff choosing strategy $s_1$ = $\underset{s_2}{min}V_1(s_1;s_2)$, and since player1 want to maximize her payoff, so the payoff of player1 = 
+\[v^- = \underset{s_1}{max}(\underset{s_2}{min}V_1(s_1;s_2))\]
+$v^-$ is called lower value of the games which indicates the minimum guarantee cutoff that player 1 can receive from the games. \\
+For player2, similarly, she would expect  the payoff of choosing strategy $s_1$ = $-\underset{s_1}{max}V_1(s_1;s_2)$, and the player2's expected payoff = $-\underset{s_2}{min}(\underset{s_1}{max}V_1(s_1;s_2))$, thus 
+\[v^+ = \underset{s_2}{min}(\underset{s_1}{max}V_1(s_1;s_2))\]
+is called upper value of the games which indicates the maximum loss that player 2 can suffer from the games. \\
+Now consider Nash equilibrium $(s_1^*, s_2^*)$. \\
+For player1, 
+\[ V_1(s_1^*;s_2^*)=\underset{s_2}{min}V_1(s_1^*;s_2)\leq\underset{s_1}{max}(\underset{s_2}{min}V_1(s_1;s_2))=v^-\]
+also with
+\[ V_1(s_1^*;s_2^*) = \underset{s_1}{max}V_1(s_1^*;s_2) \geq \underset{s_1}{max}(\underset{s_2}{min}V_1(s_1;s_2))=v^-\]
+Thus we have 
+\[V_1(s_1^*;s_2^*) = v^-\]
+For player2, similarly, $V_2(s_2^*;s_1^*) = \underset{s_2}{max}(\underset{s_1}{min}V_2(s_2;s_1))$, thus 
+$$-V_1(s_1^*;s_2^*)= \underset{s_2}{max}(-\underset{s_1}{min}V_1(s_1;s_2)) = -\underset{s_2}{min}(\underset{s_1}{max}V_1(s_1;s_2))$$
+Thus $$V_1(s_1^*;s_2^*) = \underset{s_2}{min}(\underset{s_1}{max}V_1(s_1;s_2)) = v^+$$
+\textbf{Combining the result, we deduce that $\mathbf{v^- = V_1(s_1^*;s_2^*) = v^+}$ if $(\mathbf{s_1^*,s_2^*})$ is Nash equilibrium.}\\
+\textbf{2)}\\
+let $s_1^*$ be a strategy such that $\underset{s_2}{min}V_1(s_1^*;s_2) = v^-$. On the other hand, we let $s_2^*$
+be a strategy such that $\underset{s_1}{max}V_1(s_1;s_2^*) = v^+$.\\
+Consider player1: 
+\[V_1(s_1^*;s_2^*) \geq \underset{s_2}{min}V_1(s_1^*;s_2) = v^- = v^+ = \underset{s_1}{max}V_1(s_1;s_2^*) \geq V_1(s_1; s_2^*)\]
+for any $s_1\in S_1$. This implies that $s_1^*$ is the player 1's best response to $s_2^*$.\\
+Consider player2: similarly, \[
+V_2(s_2^*; s_1^*) = -V_1(s_1^*; s_2^*) = - \max_{s_1} V_1(s_1; s_2^*) = -v^+ = -v^- = - \min_{s_2} V_1(s_1^*; s_2)
+\ge -V_1(s_1^*; s_2) = V_2(s_2; s_1^*).
+\]
+for any $s_2 \in S_2$. This implies that $s_2^*$ is the player 2's best response to $s_1^*$. \\
+Hence, we conclude that $(s_1^*,s_2^*)$ is the desired pure strategy Nash equilibrium. 
+\begin{theorem}[Existence of pure strategy Nash equilibrium in 2-person finite games]
+   A two-person finite games has the pure strategy Nash equilibrium if and only if  
+   \[v^- = \underset{s_1}{\max}(\underset{s_2}{\min}V_1(s_1;s_2)) = \underset{s_2}{\min}(\underset{s_1}{\max}V_1(s_1;s_2)) = v^+\]
+\end{theorem}
+
+
+
+
+\end{document}

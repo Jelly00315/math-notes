@@ -1,0 +1,152 @@
+%% The lines that are not written within % .. % are not to be tampered with!!
+
+\documentclass[twoside]{article}
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+%
+% ADD PACKAGES here:
+\usepackage{amssymb}
+%
+
+\usepackage{amsmath,amsfonts,graphicx}
+
+
+\newcounter{lecnum}
+\renewcommand{\thepage}{\thelecnum-\arabic{page}}
+\renewcommand{\thesection}{\thelecnum.\arabic{section}}
+\renewcommand{\theequation}{\thelecnum.\arabic{equation}}
+\renewcommand{\thefigure}{\thelecnum.\arabic{figure}}
+\renewcommand{\thetable}{\thelecnum.\arabic{table}}
+
+
+\newcommand{\lecture}[4]{
+   \pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{lecnum}{#1}
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf SC 631: Games and Information
+		\hfill Autumn 2014} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill Lecture #1: #2  \hfill} }
+       \vspace{2mm}
+       \hbox to 6.28in { {\it Instructor: #3 \hfill Scribes: #4} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{Lecture #1: #2}{Lecture #1: #2}
+
+   {\bf Note}: {\it LaTeX template courtesy of UC Berkeley EECS dept.}
+
+   {\bf Disclaimer}: {\it These notes have not been subjected to the
+   usual scrutiny reserved for formal publications.  They may be distributed
+   outside this class only with the permission of the Instructor.}
+   \vspace*{4mm}
+}
+
+
+
+\renewcommand{\cite}[1]{[#1]}
+\def\beginrefs{\begin{list}%
+        {[\arabic{equation}]}{\usecounter{equation}
+         \setlength{\leftmargin}{2.0truecm}\setlength{\labelsep}{0.4truecm}%
+         \setlength{\labelwidth}{1.6truecm}}}
+\def\endrefs{\end{list}}
+\def\bibentry#1{\item[\hbox{[#1]}]}
+
+%Use this command for a figure; it puts a figure in wherever you want it.
+%usage: \fig{NUMBER}{SPACE-IN-INCHES}{CAPTION}
+%This is for your help while typing the notes
+\newcommand{\fig}[3]{
+			\vspace{#2}
+			\begin{center}
+			Figure \thelecnum.#1:~#3
+			\end{center}
+	}
+% Use these for theorems, lemmas, proofs, etc. 
+% See how they are used, below 
+\newtheorem{theorem}{Theorem}[lecnum]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\newcommand\E{\mathbb{E}}
+\newcommand{\PI}{$P_{i}$}
+\newcommand{\KIA}{$K_{i}(A)$}
+\newcommand{\FIW}{$F_{i}(\omega)$}
+\newcommand{\OS}{$\omega ^{*}$}
+\begin{document}
+
+\lecture{1}{August 14}{Ankur A. Kulkarni}{Tarun, Mridul and Deependra}%In place of scribe-name, write down your names or your group names
+
+This lecture's notes illustrate some uses of
+various \LaTeX\ macros.  
+Take a look at this and imitate.
+\section{Some Definitions}
+\subsection{Event}
+An event is a subset of Y if w=Y is the state of the world then we say event A obtains in w, if w=A.
+\subsection{$F_{i}(\omega)$}
+$F_{i}(\omega) \triangleq$ that event F of Fi s.t. $\omega \in F$
+\subsection{Knowing an Event}
+$P_{i}$ knows event A in state of the world $\omega$ if $F_{i}(\omega) \subseteq A$ \\
+$\implies \; \; \forall \; \omega \prime \in F_{i}(\omega) \implies \omega \prime \in A$
+\subsection{Knowledge Operator \KIA}
+\KIA = \{ $\omega \in Y \; | \; F_{i}(A)\subseteq A$ \}
+\KIA is the set of all those states of the world when player \PI knows A
+\subsection{Common Knowledge}
+An Event A is common knowledge in state of the world $\omega$ if for all $i_{1}, i_{2}, .....i_{n} \in \mathit{N}, n< \infty $ \\
+$\omega\in \; K_{i_{1}}K_{i_{2}}K_{i_{3}}.....K_{i_{n}}(A)$
+\section{Some theorems and stuff}
+\begin{itemize}
+\item If \OS $\in$ Y is the state of the world then \PI \; knows A in \OS \; iff \OS $\in$ \KIA
+\item K$_{j}(K_{i}(A))$ = Event that P$_{j}$ knows that \PI knows A
+\end{itemize}
+\section{Important Properties}
+\begin{itemize}
+\item \KIA $\subseteq$ A
+\item A $\subseteq$ B \\
+	$\implies$ \KIA $\subseteq$ K$_{i}(B)$ 
+\item $\forall A\subseteq$ Y, $K_{i}K_{i}(A)$ = \KIA
+\item \KIA $\cap K_{i}(B)$ = $K_{i}(A \cap B)$
+\item $K_{i}($(\KIA $)^{c})$ = (\KIA)$^{c}$
+\end{itemize}
+\begin{lemma}
+If A is common knowledge in $\omega$, and B$\supseteq$A, then \\
+B is also common knowledge in $\omega$(follows from property 2)
+\end{lemma}
+\begin{lemma}
+If A is common knowledge in $\omega$, then\\
+$\omega \in$ \KIA and \FIW $\subseteq$ A for i
+\end{lemma}
+\begin{theorem}
+If A is common knowledge in $\omega$ and $\omega\prime\in$\FIW \; for some i $\in\mathit{N}$, then
+A is common knowledge in $\omega\prime$
+\end{theorem}
+A is common knowledge in $\omega\\\implies$
+$\omega\in \; K_{i}K_{i_{1}}K_{i_{2}}.....K_{i_{n}}(A) \; \forall i_{1}, i_{2}, .....i_{n} \in \mathit{N}$\\
+Suppose $\omega\prime\in \; $\FIW, \\
+$\omega \in K_{i}(K_{i_{1}}K_{i_{2}}.....K_{i_{n}}(A))$ \\
+$\implies$ \FIW $\subseteq K_{i_{1}}K_{i_{2}}.....K_{i_{n}}(A)$ \\
+$\implies \omega\prime\in K_{i_{1}}K_{i_{2}}.....K_{i_{n}}(A)$
+%% THIS ENDS THE EXAMPLES. DON'T DELETE THE FOLLOWING LINE:
+\section{Next topic}
+
+Here is a citation, just for fun~\cite{CW87}.
+
+\section*{References}
+\beginrefs
+\bibentry{CW87}{\sc Author1} and {\sc Author2}, 
+Title of the paper
+{\it Name of the Journal},
+2014, pp.~1--6.
+\endrefs
+\end{document}

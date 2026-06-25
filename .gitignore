@@ -1,0 +1,12 @@
+# Ignore Obsidian workspace layout cache
+.obsidian/workspace.json
+.obsidian/plugins/
+
+# Ignore LaTeX temporary build files
+*.aux
+*.log
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
